@@ -3,7 +3,7 @@ var async = require('async');
 var mysql = require('mysql');
 var _ = require('underscore');
 var noop = function(){};
-var logPrefix = '[nodebb-plugin-import-phpbb]';
+var logPrefix = '[nodebb-plugin-import-dbdebb]';
 
 (function(Exporter) {
 
@@ -14,10 +14,10 @@ var logPrefix = '[nodebb-plugin-import-phpbb]';
         // extract them from the configs passed by the nodebb-plugin-import adapter
         var _config = {
             host: config.dbhost || config.host || 'localhost',
-            user: config.dbuser || config.user || 'root',
+            user: config.dbuser || config.user || 'web494',
             password: config.dbpass || config.pass || config.password || '',
             port: config.dbport || config.port || 3306,
-            database: config.dbname || config.name || config.database || 'phpbb'
+            database: config.dbname || config.name || config.database || 'usr_web494_1'
         };
 
         Exporter.config(_config);
