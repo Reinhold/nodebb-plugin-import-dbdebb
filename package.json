@@ -1,6 +1,6 @@
 {
-  "name": "nodebb-plugin-import-phpbb",
-  "version": "0.1.5",
+  "name": "nodebb-plugin-import-dbdebb",
+  "version": "0.1.0",
   "description": "A phpBB2 to NodeBB data exporter",
   "main": "./index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/psychobunny/nodebb-plugin-import-phpbb"
+    "url": "https://github.com/psychobunny/nodebb-plugin-import-dbdebb"
   },
   "keywords": [
     "phpbb",
@@ -19,12 +19,12 @@
     "import"
   ],
   "author": {
-    "name": "psychobunny",
-    "email": "psycho.bunny@hotmail.com"
+    "name": "Reinhold",
+    "email": "r.kleber@rkc.de"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/psychobunny/nodebb-plugin-import-phpbb/issues"
+    "url": "https://github.com/Reinhold/nodebb-plugin-import-dbdebb/issues"
   },
   "nbbpm": {
     "index": false
