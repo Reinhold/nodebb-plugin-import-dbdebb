@@ -14,10 +14,10 @@ var logPrefix = '[nodebb-plugin-import-dbdebb]';
         // extract them from the configs passed by the nodebb-plugin-import adapter
         var _config = {
             host: config.dbhost || config.host || 'localhost',
-            user: config.dbuser || config.user || 'web494',
+            user: config.dbuser || config.user || 'root',
             password: config.dbpass || config.pass || config.password || '',
             port: config.dbport || config.port || 3306,
-            database: config.dbname || config.name || config.database || 'usr_web494_1'
+            database: config.dbname || config.name || config.database || 'phpbb'
         };
 
         Exporter.config(_config);
@@ -41,18 +41,18 @@ var logPrefix = '[nodebb-plugin-import-dbdebb]';
         var query = 'SELECT '
             + prefix + 'users.user_id as _uid, '
             + prefix + 'users.username as _username, '
-            + prefix + 'users.username_clean as _alternativeUsername, '
+            + prefix + 'users.name as _alternativeUsername, '
             + prefix + 'users.user_email as _registrationEmail, '
             //+ prefix + 'users.user_rank as _level, '
             + prefix + 'users.user_regdate as _joindate, '
             + prefix + 'users.user_email as _email '
             //+ prefix + 'banlist.ban_id as _banned '
-            //+ prefix + 'USER_PROFILE.USER_SIGNATURE as _signature, '
-            //+ prefix + 'USER_PROFILE.USER_HOMEPAGE as _website, '
-            //+ prefix + 'USER_PROFILE.USER_OCCUPATION as _occupation, '
-            //+ prefix + 'USER_PROFILE.USER_LOCATION as _location, '
-            //+ prefix + 'USER_PROFILE.USER_AVATAR as _picture, '
-            //+ prefix + 'USER_PROFILE.USER_TITLE as _title, '
+            + prefix + 'users.user_sig as _signature, '
+            + prefix + 'users.user_website as _website, '
+            + prefix + 'users.user_occ as _occupation, '
+            + prefix + 'users.user_from as _location, '
+            + prefix + 'users.user_avatar as _picture, '
+            + prefix + 'users.user_interests as _title, '
             //+ prefix + 'USER_PROFILE.USER_RATING as _reputation, '
             //+ prefix + 'USER_PROFILE.USER_TOTAL_RATES as _profileviews, '
             //+ prefix + 'USER_PROFILE.USER_BIRTHDAY as _birthday '
@@ -109,10 +109,10 @@ var logPrefix = '[nodebb-plugin-import-dbdebb]';
         var prefix = Exporter.config('prefix');
         var startms = +new Date();
         var query = 'SELECT '
-            + prefix + 'forums.forum_id as _cid, '
-            + prefix + 'forums.forum_name as _name, '
-            + prefix + 'forums.forum_desc as _description '
-            + 'FROM ' + prefix + 'forums '
+            + prefix + 'categories.cat_id as _cid, '
+            + prefix + 'categories.cat_title as _name, '
+            // + prefix + 'categories.cat_desc as _description '
+            + 'FROM ' + prefix + 'categories '
             +  (start >= 0 && limit >= 0 ? 'LIMIT ' + start + ',' + limit : '');
             
         if (!Exporter.connection) {
@@ -131,8 +131,8 @@ var logPrefix = '[nodebb-plugin-import-dbdebb]';
                 //normalize here
                 var map = {};
                 rows.forEach(function(row) {
-                    row._name = row._name || 'Untitled Category';
-                    row._description = row._description || 'No decsciption available';
+                    row._name = row._name || 'Kategorie ohne Titel';
+                    row._description = row._description || 'Keine Beschreibung verfügbar';
                     row._timestamp = ((row._timestamp || 0) * 1000) || startms;
 
                     map[row._cid] = row;
@@ -160,14 +160,14 @@ var logPrefix = '[nodebb-plugin-import-dbdebb]';
             // see https://github.com/akhoury/nodebb-plugin-import#important-note-on-topics-and-posts
             // I don't really need it since I just do a simple join and get its content, but I will include for the reference
             // remember this post EXCLUDED in the exportPosts() function
-            + prefix + 'topics.topic_first_post_id as _pid, '
+            + prefix + 'topics.topic_poster as _pid, '
 
             + prefix + 'topics.topic_views as _viewcount, '
             + prefix + 'topics.topic_title as _title, '
             + prefix + 'topics.topic_time as _timestamp, '
 
             // maybe use that to skip
-            + prefix + 'topics.topic_approved as _approved, '
+            // + prefix + 'topics.topic_approved as _approved, '
 
             + prefix + 'topics.topic_status as _status, '
 
@@ -177,7 +177,7 @@ var logPrefix = '[nodebb-plugin-import-dbdebb]';
             + prefix + 'posts.topic_id as _post_tid, '
 
             // and there is the content I need !!
-            + prefix + 'posts.post_text as _content '
+            + prefix + 'posts_text.post_text as _content '
 
             + 'FROM ' + prefix + 'topics, ' + prefix + 'posts '
             // see
@@ -241,13 +241,13 @@ var logPrefix = '[nodebb-plugin-import-dbdebb]';
             + prefix + 'posts.topic_id as _tid, '
             + prefix + 'posts.post_time as _timestamp, '
             // not being used
-            + prefix + 'posts.post_subject as _subject, '
+            // + prefix + 'posts.post_subject as _subject, '
 
             + prefix + 'posts.post_text as _content, '
             + prefix + 'posts.poster_id as _uid, '
 
             // maybe use this one to skip
-            + prefix + 'posts.post_approved as _approved '
+            // + prefix + 'posts.post_approved as _approved '
 
             + 'FROM ' + prefix + 'posts '
 

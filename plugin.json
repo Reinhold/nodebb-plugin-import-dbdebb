@@ -1,13 +1,13 @@
 {
-    	"id": "nodebb-plugin-import-phpbb",
-    	"name": "nodebb-plugin-import-phpbb",
+    	"id": "nodebb-plugin-import-dbdebb",
+    	"name": "nodebb-plugin-import-dbdebb",
     	"description": "A phpBB2 to NodeBB data exporter compatible with nodebb-plugin-import",
-    	"url": "https://github.com/psychobunny/nodebb-plugin-import-phpbb",
+    	"url": "https://github.com/Reinhold/nodebb-plugin-import-dbdebb",
 	"library": "./admin/index.js",
 	"hooks": [
 		{ "hook": "filter:admin.header.build", "method": "admin.menu"},
 		{ "hook": "static:app.load", "method": "admin.load"}
 	],
     	"templates": "./public/templates",
-    	"minver": "0.5.0"
+    	"minver": "0.1.0"
 }

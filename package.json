@@ -1,14 +1,14 @@
 {
   "name": "nodebb-plugin-import-dbdebb",
   "version": "0.1.0",
-  "description": "A phpBB2 to NodeBB data exporter",
+  "description": "A dbdebb to NodeBB data exporter",
   "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/psychobunny/nodebb-plugin-import-dbdebb"
+    "url": "https://github.com/Reinhold/nodebb-plugin-import-dbdebb"
   },
   "keywords": [
     "phpbb",
@@ -20,7 +20,7 @@
   ],
   "author": {
     "name": "Reinhold",
-    "email": "r.kleber@rkc.de"
+    "email": "reinhold.kleber@gmail.com"
   },
   "license": "MIT",
   "bugs": {
